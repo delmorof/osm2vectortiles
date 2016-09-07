@@ -66,7 +66,7 @@ Layer:
               UNION ALL
               SELECT osm_id, geometry, type
               FROM landuse_z13toz14
-              WHERE z(!scale_denominator!) BETWEEN 13 AND 14
+              WHERE z(!scale_denominator!) BETWEEN 13 AND 18
             ) AS landuse_z9toz14
             WHERE geometry && !bbox!
         ) AS data
@@ -110,7 +110,7 @@ Layer:
             UNION ALL
             SELECT *
             FROM waterway_z14
-            WHERE z(!scale_denominator!) = 14
+            WHERE z(!scale_denominator!) >= 14
           ) AS waterway
           WHERE geometry && !bbox!
         ) AS data
@@ -175,7 +175,7 @@ Layer:
             UNION ALL
             SELECT osm_id, geometry
             FROM water_z13toz14
-            WHERE z(!scale_denominator!) BETWEEN 13 AND 14
+            WHERE z(!scale_denominator!) BETWEEN 13 AND 18
           ) AS water
           WHERE geometry && !bbox!
         ) AS data
@@ -209,7 +209,7 @@ Layer:
             UNION ALL
             SELECT *
             FROM aeroway_z10toz14
-            WHERE z(!scale_denominator!) BETWEEN 10 AND 14
+            WHERE z(!scale_denominator!) BETWEEN 10 AND 18
           ) AS aeroway
           WHERE geometry && !bbox!
         ) AS data
@@ -239,7 +239,7 @@ Layer:
           SELECT osm_ids2mbid(osm_id, is_polygon(geometry)) AS osm_id, geometry, barrier_line_class(type) AS class
           FROM barrier_line_z14
           WHERE geometry && !bbox!
-            AND z(!scale_denominator!) = 14
+            AND z(!scale_denominator!) >= 14
         ) AS data
       type: postgis
       user: osm
@@ -272,7 +272,7 @@ Layer:
             UNION ALL
             SELECT osm_id, geometry, underground
             FROM building_z14
-            WHERE z(!scale_denominator!) = 14
+            WHERE z(!scale_denominator!) >= 14
           ) AS building
           WHERE geometry && !bbox!
           ORDER BY ST_YMin(ST_Envelope(geometry)) DESC
@@ -330,7 +330,7 @@ Layer:
             WHERE z(!scale_denominator!) BETWEEN 11 AND 12
             UNION ALL
             SELECT osm_id, geometry, type FROM landuse_overlay_z13toz14
-            WHERE z(!scale_denominator!) BETWEEN 13 AND 14
+            WHERE z(!scale_denominator!) BETWEEN 13 AND 18
           ) AS landuse_overlay
           WHERE geometry && !bbox!
         ) AS data
@@ -392,7 +392,7 @@ Layer:
                 WHERE z(!scale_denominator!) = 13
                 UNION ALL
                 SELECT * FROM road_z14
-                WHERE z(!scale_denominator!) = 14
+                WHERE z(!scale_denominator!) >= 14
                ) AS t2
               WHERE geometry && !bbox!
               ORDER BY z_order ASC
@@ -448,7 +448,7 @@ Layer:
             UNION ALL
             SELECT osm_id, geometry, admin_level, disputed, maritime
             FROM admin_z7toz14
-            WHERE z(!scale_denominator!) BETWEEN 7 AND 14
+            WHERE z(!scale_denominator!) BETWEEN 7 AND 18
           ) AS admin
           WHERE geometry && !bbox!
         ) AS data
@@ -710,7 +710,7 @@ Layer:
                 WHERE z(!scale_denominator!) = 13
                 UNION ALL
                 SELECT * FROM place_label_z14
-                WHERE z(!scale_denominator!) = 14
+                WHERE z(!scale_denominator!) >= 14
               ) AS place_label
             WHERE geometry && !bbox!
             ORDER BY population DESC NULLS LAST
@@ -779,7 +779,7 @@ Layer:
             WHERE z(!scale_denominator!) = 13
             UNION ALL
             SELECT * FROM water_label_z14
-            WHERE z(!scale_denominator!) = 14
+            WHERE z(!scale_denominator!) >= 14
           ) AS water_label
           WHERE geometry && !bbox!
         ) AS data
@@ -828,7 +828,7 @@ Layer:
               rank() OVER (PARTITION BY LabelGrid(geometry, 128 * !pixel_width!)
                            ORDER BY poi_label_localrank(type, name) ASC) AS localrank
             FROM poi_label_z14
-            WHERE z(!scale_denominator!) = 14
+            WHERE z(!scale_denominator!) >= 14
               AND geometry && !bbox!
         ) AS data
       type: postgis
@@ -902,14 +902,14 @@ Layer:
               WHERE z(!scale_denominator!) BETWEEN 12 AND 13
               UNION ALL
               SELECT * FROM road_label_z14
-              WHERE z(!scale_denominator!) = 14
+              WHERE z(!scale_denominator!) >= 14
             ) AS road_label
             WHERE geometry && !bbox!
               AND ST_GeometryType(geometry) = 'ST_LineString'
           ) AS t1
           WHERE (z(!scale_denominator!) BETWEEN 8 AND 10 AND localrank < 2)
              OR (z(!scale_denominator!) BETWEEN 11 AND 12 AND localrank < 5)
-             OR (z(!scale_denominator!) BETWEEN 13 AND 14)
+             OR (z(!scale_denominator!) BETWEEN 13 AND 18)
         ) AS t2
       type: postgis
       user: osm
@@ -955,7 +955,7 @@ Layer:
           road_type_class(junction_type(type)) AS class
           FROM (
             SELECT * FROM motorway_junction_z12toz14
-            WHERE z(!scale_denominator!) BETWEEN 12 AND 14
+            WHERE z(!scale_denominator!) BETWEEN 12 AND 18
           ) AS t
           WHERE geometry && !bbox!
         ) AS data
@@ -999,7 +999,7 @@ Layer:
             WHERE z(!scale_denominator!) = 13
             UNION ALL
             SELECT * FROM waterway_label_z14
-            WHERE z(!scale_denominator!) = 14
+            WHERE z(!scale_denominator!) >= 14
           ) AS waterway_label
           WHERE geometry && !bbox!
           AND linelabel(z(!scale_denominator!), name, geometry)
@@ -1048,7 +1048,7 @@ Layer:
           airport_label_scalerank(airport_label_class(kind, type), area, aerodrome) AS scalerank
           FROM airport_label_z9toz14
           WHERE geometry && !bbox!
-          AND z(!scale_denominator!) BETWEEN 9 AND 14
+          AND z(!scale_denominator!) BETWEEN 9 AND 18
         ) AS data
       type: postgis
       user: osm
@@ -1097,7 +1097,7 @@ Layer:
             WHERE z(!scale_denominator!) = 13
             UNION ALL
             SELECT * FROM rail_station_label_z14
-            WHERE z(!scale_denominator!) = 14
+            WHERE z(!scale_denominator!) >= 14
           ) AS t
           WHERE geometry && !bbox!
         ) AS data
@@ -1145,7 +1145,7 @@ Layer:
           coalesce(NULLIF(name_zh, ''), name) AS name_zh
           FROM mountain_peak_label_z12toz14
           WHERE geometry && !bbox!
-            AND z(!scale_denominator!) BETWEEN 12 AND 14
+            AND z(!scale_denominator!) BETWEEN 12 AND 18
         ) AS data
       type: postgis
       user: osm
@@ -1182,7 +1182,7 @@ Layer:
           SELECT osm_ids2mbid(osm_id, true) AS osm_id, topoint(geometry) AS geometry, house_num
           FROM housenum_label_z14
           WHERE geometry && !bbox!
-            AND z(!scale_denominator!) = 14
+            AND z(!scale_denominator!) >= 14
         ) AS data
       type: postgis
       user: osm
@@ -1192,6 +1192,6 @@ Layer:
     properties: 
       "buffer-size": 64
     srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
-maxzoom: 14
+maxzoom: 16
 minzoom: 0
 name: OSM2VectorTiles v1.4
