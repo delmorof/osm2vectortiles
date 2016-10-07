@@ -5,6 +5,8 @@ docker-compose up -d postgis
 
 docker-compose run import-external
 
+cd import 
+
 Planet
 - wget http://planet.osm.org/pbf/planet-latest.osm.pbf
 
