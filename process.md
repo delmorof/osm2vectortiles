@@ -1,4 +1,6 @@
 ```bash
+make fast 
+
 docker-compose up -d postgis
 
 docker-compose run import-external
