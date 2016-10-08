@@ -26,7 +26,8 @@ docker-compose run \
   -e MAX_ZOOM="16" \
   export
   
-Ensure you have export/planet.mbtiles file present to merge the jobs into. Reuse a low level zoom extract generated earlier or download an existing low level zoom extract from http://osm2vectortiles.org/downloads/.
+Ensure you have export/planet.mbtiles file present to merge the jobs into. 
+Reuse a low level zoom extract generated earlier or download an existing low level zoom extract from http://osm2vectortiles.org/downloads/. Ensure you have insalled sqlite3 drivers.
 
 wget https://raw.githubusercontent.com/mapbox/mbutil/master/patch
 chmod +x patch
