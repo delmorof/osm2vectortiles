@@ -13,6 +13,9 @@ Planet
 Europe
 - wget http://download.geofabrik.de/europe-latest.osm.pbf
 
+italy
+-  wget http://download.geofabrik.de/europe/italy-latest.osm.pbf
+
 italy-centro
 - wget http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf
 
